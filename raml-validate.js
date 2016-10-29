@@ -1,12 +1,31 @@
 #!/usr/bin/env node
 
-var raml = require("raml-1-parser");
-var fs = require("fs");
-var path = require("path");
+'use strict';
 
-// Here we create a file name to be loaded
-var fName = path.resolve(__dirname, "test/definition.raml");
+const raml = require('raml-1-parser');
+const fs = require('fs');
+const path = require('path');
+const yargs = require('yargs');
 
-// Parse our RAML file with all the dependencies
-var api = raml.loadApiSync(fName, {rejectOnErrors: true});
-console.log(JSON.stringify(api.toJSON(), null, 2));
+const Validator = require('./validator')
+
+let argv = yargs
+    .usage('Usage:\n  raml-validate.js </path/to/raml>' +
+    '\n\nExample:\n  ' + 'raml-validate definition.raml')
+    .check( (argv) => {
+        if (argv._.length < 1) {
+            throw new Error('raml-validate.js: Must specify path to RAML file');
+        }
+        return true;
+    })
+    .epilog("Website:\n  " + 'https://github.com/joanvila/raml-js-validator')
+    .argv;
+
+let fileName = path.resolve(__dirname, argv._[0]);
+
+let api = raml.loadApiSync(fileName, {rejectOnErrors: true});
+
+console.log('RAML parsing success. Querying api now...')
+
+let validator = new Validator(api);
+validator.validate();

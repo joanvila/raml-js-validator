@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/joanvila/raml-js-validator#readme",
   "dependencies": {
-    "raml-1-parser": "1.1.6"
+    "raml-1-parser": "1.1.6",
+    "yargs": "6.3.0"
   }
 }
