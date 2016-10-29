@@ -1,0 +1,32 @@
+{
+  "name": "raml-js-validator",
+  "version": "1.0.0",
+  "description": "Simple RAML 1.0 validator that reads an API definition and performs a query checking the correctness of the response",
+  "bin": "raml-validate.js",
+  "main": "raml-validate.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joanvila/raml-js-validator.git"
+  },
+  "keywords": [
+    "raml",
+    "api",
+    "validation",
+    "test"
+  ],
+  "author": "Joan Vila <vila.joan94@gmail.com> (http://joanvila.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joanvila/raml-js-validator/issues"
+  },
+  "homepage": "https://github.com/joanvila/raml-js-validator#readme",
+  "dependencies": {
+    "raml-1-parser": "1.1.6"
+  }
+}
