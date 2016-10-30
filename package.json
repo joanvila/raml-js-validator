@@ -2,8 +2,10 @@
   "name": "raml-js-validator",
   "version": "1.0.0",
   "description": "Simple RAML 1.0 validator that reads an API definition and performs a query checking the correctness of the response",
-  "bin": "raml-validate.js",
-  "main": "raml-validate.js",
+  "bin": {
+    "raml-validate": "bin/raml-validate.js"
+  },
+  "main": "bin/raml-validate.js",
   "directories": {
     "test": "test"
   },
@@ -28,6 +30,7 @@
   "homepage": "https://github.com/joanvila/raml-js-validator#readme",
   "dependencies": {
     "raml-1-parser": "1.1.6",
+    "request": "^2.76.0",
     "yargs": "6.3.0"
   },
   "devDependencies": {
