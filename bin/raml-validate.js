@@ -12,7 +12,7 @@ const Validator = require('../lib/validator');
 let argv = yargs
     .usage('Usage:\n  raml-validate.js </path/to/raml> [target]' +
     '\n\nExample:\n  ' + 'raml-validate definition.raml --target http://localhost:8080')
-    .check( (argv) => {
+    .check(argv => {
         if (argv._.length < 1) {
             throw new Error('raml-validate.js: Must specify path to RAML file');
         }
