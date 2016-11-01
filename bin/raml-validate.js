@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const yargs = require('yargs');
 
-const Validator = require('../validator')
+const Validator = require('../lib/validator')
 
 let argv = yargs
     .usage('Usage:\n  raml-validate.js </path/to/raml> [target]' +
