@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const yargs = require('yargs');
 
-const Validator = require('../lib/validator')
+const Validator = require('../lib/validator');
 
 let argv = yargs
     .usage('Usage:\n  raml-validate.js </path/to/raml> [target]' +
@@ -25,7 +25,7 @@ let fileName = path.resolve(process.cwd(), argv._[0]);
 
 let api = raml.loadApiSync(fileName, {rejectOnErrors: true});
 
-console.log('RAML parsing success. Querying api now...')
+console.log('RAML parsing success. Querying api now...');
 
 let validator = new Validator(api, argv.target);
 validator.validate();
