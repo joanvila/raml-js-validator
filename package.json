@@ -1,6 +1,6 @@
 {
   "name": "raml-js-validator",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Simple RAML 1.0 validator that reads an API definition and performs a query checking the correctness of the response",
   "bin": {
     "raml-validate": "bin/raml-validate.js"
@@ -10,7 +10,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
@@ -35,11 +35,16 @@
     "yargs": "6.3.0"
   },
   "devDependencies": {
+    "blanket": "1.2.3",
     "body-parser": "1.15.2",
     "chai": "3.5.0",
-    "chai-as-promised": "^6.0.0",
+    "chai-as-promised": "6.0.0",
     "express": "4.14.0",
-    "jshint": "2.9.4",
+    "grunt": "1.0.1",
+    "grunt-contrib-jshint": "1.0.0",
+    "grunt-contrib-watch": "1.0.0",
+    "grunt-coveralls": "1.0.1",
+    "grunt-mocha-test": "0.13.2",
     "mocha": "3.1.2",
     "sinon": "1.17.6"
   }
