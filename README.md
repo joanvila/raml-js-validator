@@ -1,5 +1,7 @@
 # RAML 1.0 validator
 
+[![Build Status](https://travis-ci.org/joanvila/raml-js-validator.svg?branch=master)](https://travis-ci.org/joanvila/raml-js-validator)
+
 Simple RAML 1.0 validator that reads a RAML definition and performs a query to the endpoint to check the return codes.
 
 ## How to use
