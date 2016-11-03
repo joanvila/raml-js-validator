@@ -10,6 +10,7 @@ var router = express.Router();
 
 var mainRouter = require('./routes/mainEndpoint');
 app.use('/', mainRouter);
+app.use('/tasks', mainRouter);
 
 http.createServer(app).listen(8080, function(){
     console.log('Listening on port 8080');
