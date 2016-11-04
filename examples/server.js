@@ -1,14 +1,16 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var http = require('http');
+'use strict';
 
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const http = require('http');
+
+let app = express();
 
 app.use(bodyParser.json());
 
-var router = express.Router();
+let router = express.Router();
 
-var mainRouter = require('./routes/mainEndpoint');
+let mainRouter = require('./routes/mainEndpoint');
 app.use('/', mainRouter);
 app.use('/tasks', mainRouter);
 

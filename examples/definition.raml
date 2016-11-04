@@ -19,6 +19,22 @@ baseUri: /
                     application/json:
                         type: array
 
+/task/{taskid}:
+    get:
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: string
+
+/user/{userid}/task/{taskid}:
+    get:
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: string
+
 /unexisting:
     get:
         responses:
