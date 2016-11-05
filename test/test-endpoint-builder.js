@@ -29,24 +29,49 @@ describe('endpoint-builder', () => {
 
     });
 
-    describe('buildWithParameters()', () => {
+    describe('buildWithStringParameters()', () => {
 
         before(() => {
-            sinon.stub(paramMappings, 'get', function() {return 'a';});
+            sinon.stub(paramMappings, 'get', function() { return 'a'; });
         });
 
         after(() => {
             paramMappings.get.restore();
         });
 
-        let mockStringParam = { type: function() {return typeof('string');} }
+        let mockParam = { type: function() {return typeof('string');} }
 
-        it('should return a parsed uri rith a param replaced', () => {
+        it('should return a parsed uri with a param replaced', () => {
             assert.equal(
-                endpointBuilder.build(undefined, '/resource/{testParam}', [mockStringParam]),
+                endpointBuilder.build(undefined, '/resource/{testParam}', [mockParam]),
                 'http://localhost:8080/resource/a');
+        });
+
+        it('should return a parsed uri with more than one param replaced', () => {
+            assert.equal(
+                endpointBuilder.build(undefined, '/resource/{testParam}/{anotherTestParam}', [mockParam, mockParam]),
+                'http://localhost:8080/resource/a/a');
         });
 
     });
 
+    describe('buildWithIntParameters()', () => {
+
+        before(() => {
+            sinon.stub(paramMappings, 'get', function() { return 1; });
+        });
+
+        after(() => {
+            paramMappings.get.restore();
+        });
+
+        let mockParam = { type: function() {return typeof(1);} }
+
+        it('should return a parsed uri with an integer type param', () => {
+            assert.equal(
+                endpointBuilder.build(undefined, '/resource/{testParam}/{anotherTestParam}', [mockParam, mockParam]),
+                'http://localhost:8080/resource/1/1');
+        });
+
+    });
 });
