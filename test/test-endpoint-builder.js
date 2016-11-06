@@ -10,14 +10,14 @@ describe('endpoint-builder', () => {
     describe('buildUnparsedUri()', () => {
 
         let mockResourceNoBaseuri = {
-            absoluteUri: function() {return '/resource'},
-            completeRelativeUri: function() {return '/resource'}
-        }
+            absoluteUri: function() {return '/resource';},
+            completeRelativeUri: function() {return '/resource';}
+        };
 
         let mockResourceWithBaseuri = {
-            absoluteUri: function() {return 'http://baseuri/resource'},
-            completeRelativeUri: function() {return '/resource'}
-        }
+            absoluteUri: function() {return 'http://baseuri/resource';},
+            completeRelativeUri: function() {return '/resource';}
+        };
 
         it('should strip the ending slash on the target', () => {
             assert.equal(
@@ -60,7 +60,7 @@ describe('endpoint-builder', () => {
             paramMappings.get.restore();
         });
 
-        let mockParam = { type: function() {return typeof('string');} }
+        let mockParam = { type: function() {return typeof('string');} };
 
         it('should return a parsed uri with a param replaced', () => {
             assert.equal(
@@ -88,7 +88,7 @@ describe('endpoint-builder', () => {
             paramMappings.get.restore();
         });
 
-        let mockParam = { type: function() {return typeof(1);} }
+        let mockParam = { type: function() {return typeof(1);} };
 
         it('should return a parsed uri with an integer type param', () => {
             assert.equal(
