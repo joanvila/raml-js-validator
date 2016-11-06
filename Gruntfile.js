@@ -3,6 +3,7 @@ module.exports = function(grunt) {
     // Add the grunt-mocha-test tasks.
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-shell');
 
     grunt.initConfig({
 
@@ -34,6 +35,13 @@ module.exports = function(grunt) {
                 'lib/**/*.js',
                 '!node_modules/**/'
             ]
+        },
+
+        shell: {
+            options: {
+                stderr: false
+            },
+            target: './node_modules/.bin/istanbul cover node_modules/.bin/_mocha test/ -R spec'
         }
 
     });
@@ -41,6 +49,7 @@ module.exports = function(grunt) {
     grunt.registerTask('mocha', 'mochaTest');
     grunt.registerTask('watch', 'watch');
     grunt.registerTask('lint', 'jshint');
+    grunt.registerTask('coverage', 'shell');
 
     grunt.registerTask('test', ['jshint', 'mochaTest']);
     grunt.registerTask('default', ['jshint', 'mochaTest']);
