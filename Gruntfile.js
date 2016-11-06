@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-coveralls');
 
     grunt.initConfig({
 
@@ -41,7 +42,24 @@ module.exports = function(grunt) {
             options: {
                 stderr: false
             },
-            target: './node_modules/.bin/istanbul cover node_modules/.bin/_mocha test/ -R spec'
+            coverage: './node_modules/.bin/istanbul cover node_modules/.bin/_mocha test/ -R spec'
+        },
+
+        coveralls: {
+            options: {
+                // When true, grunt-coveralls will only print a warning rather than
+                // an error, to prevent CI builds from failing unnecessarily (e.g. if
+                // coveralls.io is down). Optional, defaults to false.
+                force: false
+            },
+
+            upload: {
+                // LCOV coverage file (can be string, glob or array)
+                src: 'coverage/lcov.info',
+                options: {
+                    // Any options for just this target
+                }
+            }
         }
 
     });
@@ -49,9 +67,10 @@ module.exports = function(grunt) {
     grunt.registerTask('mocha', 'mochaTest');
     grunt.registerTask('watch', 'watch');
     grunt.registerTask('lint', 'jshint');
-    grunt.registerTask('coverage', 'shell');
+    grunt.registerTask('coverage', 'shell:coverage');
+    grunt.registerTask('uploadcoveralls', 'coveralls:upload');
 
-    grunt.registerTask('test', ['jshint', 'mochaTest']);
+    grunt.registerTask('test', ['jshint', 'mochaTest', 'shell:coverage']);
     grunt.registerTask('default', ['jshint', 'mochaTest']);
 
 };
