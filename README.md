@@ -5,7 +5,7 @@
 [![Dependency Status](https://david-dm.org/joanvila/raml-js-validator/status.svg)](https://david-dm.org/joanvila/raml-js-validator)
 [![devDependency Status](https://david-dm.org/joanvila/raml-js-validator/dev-status.svg)](https://david-dm.org/joanvila/raml-js-validator?type=dev)
 
-Simple RAML **1.0** validator that reads a file containing an API definition and performs a query to each endpoint to check that the RAML matches the backend implementation.
+Simple **RAML 1.0** validator that reads a file containing an API definition and performs a query to each endpoint to check that the RAML matches the backend implementation.
 It pretends to be a way to prevent the RAML file to be outdated by triggering an error when it doesn't mach with the API. It can be used manually or in a CI environment in order to check the consistency on every build.
 
 ## How to use it
