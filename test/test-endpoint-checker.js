@@ -28,7 +28,7 @@ describe('endpoint-checker', () => {
 
 
         it('should accept promise on 200 code', () => {
-            return expect(endpointChecker.check('http://www.google.com')).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'get')).to.eventually
               .equal('Resource OK');
         });
 
@@ -47,13 +47,29 @@ describe('endpoint-checker', () => {
         });
 
         it('should reject promise with error', () => {
-            return expect(endpointChecker.check('http://localhost:0')).to.eventually
-              .be.rejectedWith('Received a non 200 error code')
+            return expect(endpointChecker.check('http://localhost:80', 'get')).to.eventually
+              .be.rejectedWith('Received an error code from get http://localhost:80')
               .and.be.an.instanceOf(Error);
         });
 
     });
 
+    describe('check() post method', () => {
+
+        before(() => {
+            sinon
+                .stub(request, 'post')
+                .yields(null, {statusCode: 200}, {});
+        });
+
+        after(() => {
+            request.post.restore();
+        });
+
+        it('should return a 200 when sending a post', () => {
+            return expect(endpointChecker.check('http://localhost:80', 'post')).to.eventually
+              .equal('Resource OK');
+        });
+
+    });
 });
-
-
