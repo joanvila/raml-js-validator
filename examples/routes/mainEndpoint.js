@@ -32,4 +32,12 @@ router.get('/user/:userid/task/:taskid', (req, res, next) => {
     }
 });
 
+router.post('/task', (req, res, next) => {
+    res.status(200).json('ok');
+});
+
+router.get('/task', (req, res, next) => {
+    res.status(200).json('ok');
+});
+
 module.exports = router;
