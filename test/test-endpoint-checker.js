@@ -28,7 +28,12 @@ describe('endpoint-checker', () => {
 
 
         it('should accept promise on 200 code', () => {
-            return expect(endpointChecker.check('http://localhost:80', 'get')).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'get', [200])).to.eventually
+              .equal('Resource OK');
+        });
+
+        it('should check default response code when no one specified', () => {
+            return expect(endpointChecker.check('http://localhost:80', 'get', [])).to.eventually
               .equal('Resource OK');
         });
 
@@ -47,9 +52,14 @@ describe('endpoint-checker', () => {
         });
 
         it('should reject promise with error', () => {
-            return expect(endpointChecker.check('http://localhost:80', 'get')).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'get', [200])).to.eventually
               .be.rejectedWith('Received an error code from get http://localhost:80')
               .and.be.an.instanceOf(Error);
+        });
+
+        it('should accept if the expected code is 500', () => {
+            return expect(endpointChecker.check('http://localhost:80', 'get', [200, 500])).to.eventually
+              .equal('Resource OK');
         });
 
     });
@@ -67,7 +77,7 @@ describe('endpoint-checker', () => {
         });
 
         it('should return a 200 when sending a post', () => {
-            return expect(endpointChecker.check('http://localhost:80', 'post')).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'post', [200])).to.eventually
               .equal('Resource OK');
         });
 

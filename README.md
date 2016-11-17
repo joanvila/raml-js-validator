@@ -8,25 +8,39 @@
 Simple **RAML 1.0** validator that reads a file containing an API definition and performs a query to each endpoint to check that the RAML matches the backend implementation.
 It pretends to be a way to prevent the RAML file to be outdated by triggering an error when it doesn't mach with the API. It can be used manually or in a CI environment in order to check the consistency on every build.
 
+## Installation
+
+Install it globally with:
+
+```
+npm install -g raml-js-validator
+```
+
+If you don't want to install it globally you will need to run it as `node_modules/.bin/raml-validate` instead of `raml-validate`
+
 ## How to use it
 
-If you don't have the package installed globally, you can run `npm link` from the project root in order to add the raml-test command to your path.
-
-To use it, you can simply type:
+To use it, you can simply run this command:
 
 ```
 raml-validate path/to/file.raml
 ```
 
-This command will read the raml definition in the file `file.raml` and query the backend for each endpoint. If the response codes are 200, no error will be reported. However, if an endpoint fails, an exception will be thrown.
+This command will read the raml definition in the file `file.raml` and query the backend for each endpoint. If the response codes match the ones specified, no error will be reported. However, if an endpoint fails, an exception will be thrown.
 
-If you want to test the raml against a host different than the one specified in the RAML, you can use this:
+If you want to test the raml against a different host than the one specified in the RAML file, you can do it this way:
 
 ```
 raml-validate path/to/file.raml --target http://localhost:8080
 ```
 
-The `--target` option sets the target server url. If it is not present, it will look for the `baseUri` attribute in the RAML file. Again, if the RAML doesn't contain any `baseUri`, the default `http://localhost:8080` will be used. Note that you can change the default host defined in the file `config.js`
+The `--target` option sets the target server url. If it is not present, it will look for the `baseUri` attribute in the RAML file. Again, if the RAML doesn't contain any `baseUri`, the default `http://localhost:8080` will be used. Note that you can change the default host defined in the file `config.js`.
+
+## Checking response codes
+
+In order to say if a response code is valid or not, raml-validate uses two priorities. By default, if the raml file contains the response codes, those will be considered the accepted ones and the check will fail if the real response code is not one of those.
+
+However, if the response codes are not present in the API definition, the only accepted code will be the 200 one. Again, you can change the default accepted response codes in the file `config.js`.
 
 ## Running the example
 
