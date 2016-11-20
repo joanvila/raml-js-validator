@@ -98,4 +98,39 @@ describe('endpoint-builder', () => {
         });
 
     });
+
+    describe('addQueryParams()', () => {
+
+        let mockQueryParams = [{
+            name: function() {return 'param1';},
+            example: function() {
+                return {
+                    value: function() {
+                        return 'exampleValue1';
+                    }
+                };
+            }
+        }, {
+            name: function() {return 'param2';},
+            example: function() {return null;}
+        }, {
+            name: function() {return 'param3';},
+            example: function() {
+                return {
+                    value: function() {
+                        return 'exampleValue3';
+                    }
+                };
+            }
+        }];
+
+        it('should build the query params part of the url', () => {
+            assert.equal(
+                endpointBuilder.addQueryParams(
+                    'baseUri', mockQueryParams),
+                'baseUri?param1=exampleValue1&param3=exampleValue3');
+        });
+
+    });
+
 });

@@ -34,6 +34,9 @@ describe('validator', () => {
                                     };
                                 }
                             }];
+                        },
+                        queryParameters: function() {
+                            return 'param';
                         }
                     }];
                 }
@@ -56,6 +59,11 @@ describe('validator', () => {
             function() {return 'prettyParsedUrl';});
 
         sinon.stub(
+            validator.endpointBuilder,
+            'addQueryParams',
+            function() {return 'prettyParsedUrl&param=1';});
+
+        sinon.stub(
             validator.endpointChecker,
             'check',
             function() {return Q.defer().promise});
@@ -69,7 +77,7 @@ describe('validator', () => {
 
     it('should validate', () => {
         validator.validate();
-        validator.endpointChecker.check.should.have.been.calledWith('prettyParsedUrl', 'get');
+        validator.endpointChecker.check.should.have.been.calledWith('prettyParsedUrl&param=1', 'get');
         // TODO: Check number of calls and an error response
     });
 
