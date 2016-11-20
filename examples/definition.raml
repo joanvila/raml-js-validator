@@ -43,6 +43,18 @@ baseUri: /
                     application/json:
                         type: string
 
+/url/with/params:
+    get:
+        queryParameters:
+            date_in:
+                type: date-only
+                required: true
+                example: 2016-09-19
+            date_out:
+                type: date-only
+                required: true
+                example: 2016-09-19
+
 /unexisting:
     get:
         responses:
