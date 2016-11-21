@@ -1,12 +1,15 @@
 'use strict';
 
 const assert = require('chai').assert;
-const endpointBuilder = require('../lib/endpoint-builder');
+const EndpointBuilder = require('../lib/endpoint-builder');
 
 const paramMappings = require('../lib/param-mappings');
 const sinon = require('sinon');
 
 describe('endpoint-builder', () => {
+
+    const endpointBuilder = new EndpointBuilder();
+
     describe('buildUnparsedUri()', () => {
 
         let mockResourceNoBaseuri = {
