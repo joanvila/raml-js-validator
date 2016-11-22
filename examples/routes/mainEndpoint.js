@@ -43,8 +43,8 @@ router.get('/task', (req, res, next) => {
 // Endpoints with query parameters
 
 router.get('/url/with/params', (req, res, next) => {
-    let date_in = req.param('date_in');
-    let date_out = req.param('date_out');
+    let date_in = req.query.date_in;
+    let date_out = req.query.date_out;
     if (date_in && date_out) {
         res.status(200).json([date_in, date_out]);
     } else {
