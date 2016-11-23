@@ -42,6 +42,26 @@ In order to say if a response code is valid or not, raml-validate uses two prior
 
 However, if the response codes are not present in the API definition, the only accepted code will be the 200 one. Again, you can change the default accepted response codes in the file `config.js`.
 
+## Query parameters
+
+Query parameters will be checked if they are defined with an example value:
+
+```
+/url/with/params:
+    get:
+        queryParameters:
+            today:
+                type: date-only
+                required: true
+                example: 2016-11-23
+            tomorrow:
+                type: date-only
+                required: false
+                example: 2016-11-24
+```
+
+In this case, the tested endpoint would be `baseUri/url/with/params?today=2016-11-23&tomorrow=2016-11-24`. Note that required field doesn't affect.
+
 ## Running the example
 
 If you browse into the package contents you will find an `examples` folder. There, you can find an example API and it's own RAML definition. In order check how it works, from a terminal in the directory of the module run:
