@@ -12,12 +12,12 @@ describe('endpoint-builder', () => {
 
     describe('buildUnparsedUri()', () => {
 
-        let mockResourceNoBaseuri = {
+        const mockResourceNoBaseuri = {
             absoluteUri: function() {return '/resource';},
             completeRelativeUri: function() {return '/resource';}
         };
 
-        let mockResourceWithBaseuri = {
+        const mockResourceWithBaseuri = {
             absoluteUri: function() {return 'http://baseuri/resource';},
             completeRelativeUri: function() {return '/resource';}
         };
@@ -63,7 +63,7 @@ describe('endpoint-builder', () => {
             paramMappings.get.restore();
         });
 
-        let mockParam = { type: function() {return typeof('string');} };
+        const mockParam = { type: function() {return typeof('string');} };
 
         it('should return a parsed uri with a param replaced', () => {
             assert.equal(
@@ -91,7 +91,7 @@ describe('endpoint-builder', () => {
             paramMappings.get.restore();
         });
 
-        let mockParam = { type: function() {return typeof(1);} };
+        const mockParam = { type: function() {return typeof(1);} };
 
         it('should return a parsed uri with an integer type param', () => {
             assert.equal(
@@ -104,7 +104,7 @@ describe('endpoint-builder', () => {
 
     describe('addQueryParams()', () => {
 
-        let mockQueryParams = [{
+        const mockQueryParams = [{
             name: function() {return 'param1';},
             example: function() {
                 return {

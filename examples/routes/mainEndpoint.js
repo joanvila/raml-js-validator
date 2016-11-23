@@ -15,15 +15,15 @@ router.get('/tasks', (req, res, next) => {
 });
 
 router.get('/task/:taskid', (req, res, next) => {
-    let taskId = req.params.taskid;
+    const taskId = req.params.taskid;
 
     if (typeof(taskId) !== 'undefined') res.status(200).json(taskId);
     else res.status(400).json('error');
 });
 
 router.get('/user/:userid/task/:taskid', (req, res, next) => {
-    let userId = req.params.userid;
-    let taskId = req.params.taskid;
+    const userId = req.params.userid;
+    const taskId = req.params.taskid;
 
     if (typeof(taskId) !== 'undefined' && typeof(userId) !== 'undefined') {
         res.status(200).json(taskId);
@@ -43,8 +43,8 @@ router.get('/task', (req, res, next) => {
 // Endpoints with query parameters
 
 router.get('/url/with/params', (req, res, next) => {
-    let date_in = req.query.date_in;
-    let date_out = req.query.date_out;
+    const date_in = req.query.date_in;
+    const date_out = req.query.date_out;
     if (date_in && date_out) {
         res.status(200).json([date_in, date_out]);
     } else {

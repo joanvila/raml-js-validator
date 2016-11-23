@@ -9,7 +9,7 @@ const yargs = require('yargs');
 
 const Validator = require('../lib/validator');
 
-let argv = yargs
+const argv = yargs
     .usage('Usage:\n  raml-validate.js </path/to/raml> [target]' +
     '\n\nExample:\n  ' + 'raml-validate definition.raml --target http://localhost:8080')
     .check(argv => {
@@ -21,11 +21,11 @@ let argv = yargs
     .epilog("Website:\n  " + 'https://github.com/joanvila/raml-js-validator')
     .argv;
 
-let fileName = path.resolve(process.cwd(), argv._[0]);
+const fileName = path.resolve(process.cwd(), argv._[0]);
 
-let api = raml.loadApiSync(fileName, {rejectOnErrors: true});
+const api = raml.loadApiSync(fileName, {rejectOnErrors: true});
 
 console.log('RAML parsing success. Querying api now...');
 
-let validator = new Validator(api, argv.target);
+const validator = new Validator(api, argv.target);
 validator.validate();

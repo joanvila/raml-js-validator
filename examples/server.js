@@ -4,13 +4,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
 
-let app = express();
+const app = express();
 
 app.use(bodyParser.json());
 
-let router = express.Router();
+const router = express.Router();
 
-let mainRouter = require('./routes/mainEndpoint');
+const mainRouter = require('./routes/mainEndpoint');
 app.use('/', mainRouter);
 
 http.createServer(app).listen(8080, function(){

@@ -44,7 +44,7 @@ describe('validator', () => {
         }
     };
 
-    let validator = new Validator(apiMock, undefined);
+    const validator = new Validator(apiMock, undefined);
 
     before(() => {
 
