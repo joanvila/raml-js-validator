@@ -53,7 +53,7 @@ describe('endpoint-checker', () => {
 
         it('should reject promise with error', () => {
             return expect(endpointChecker.check('http://localhost:80', 'get', [200])).to.eventually
-              .be.rejectedWith('Received an error code from get http://localhost:80')
+              .be.rejectedWith('[ERROR][get] http://localhost:80')
               .and.be.an.instanceOf(Error);
         });
 
