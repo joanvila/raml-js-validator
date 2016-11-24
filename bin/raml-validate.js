@@ -23,7 +23,16 @@ const argv = yargs
 
 const fileName = path.resolve(process.cwd(), argv._[0]);
 
-const api = raml.loadApiSync(fileName, {rejectOnErrors: true});
+let api = null;
+
+try {
+    api = raml.loadApiSync(fileName, {rejectOnErrors: true});
+} catch (err) {
+    err.parserErrors.forEach((parserError) => {
+        console.log('Parsing error: ' + parserError.message);
+    });
+    throw err.message;
+}
 
 console.log('RAML parsing success. Querying api now...');
 
