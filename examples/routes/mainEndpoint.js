@@ -33,6 +33,7 @@ router.get('/user/:userid/task/:taskid', (req, res, next) => {
 });
 
 router.post('/task', (req, res, next) => {
+    // FIXME: Not geting the body parameters
     res.status(200).json('ok');
 });
 

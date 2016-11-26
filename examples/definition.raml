@@ -32,6 +32,19 @@ baseUri: /
         responses:
             200:
     post:
+        description: |
+            Creates a task
+        body:
+            application/x-www-form-urlencoded:
+                properties:
+                    name:
+                        description: Nam of the task
+                        type: string
+                        example: Code things
+                    owner:
+                        description: Who's going to do it
+                        type: string
+                        example: Joan
         responses:
             200:
 
