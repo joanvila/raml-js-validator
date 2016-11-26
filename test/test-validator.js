@@ -33,6 +33,32 @@ describe('validator', () => {
                                         }
                                     };
                                 }
+                            }, {
+                                code: function() {
+                                    return {
+                                        value: function () {
+                                            return 999;
+                                        }
+                                    };
+                                }
+                            }];
+                        },
+                        queryParameters: function() {
+                            return 'param';
+                        }
+                    }, {
+                        method: function() {
+                            return 'post';
+                        },
+                        responses: function() {
+                            return [{
+                                code: function() {
+                                    return {
+                                        value: function () {
+                                            return 200;
+                                        }
+                                    };
+                                }
                             }];
                         },
                         queryParameters: function() {
@@ -45,6 +71,8 @@ describe('validator', () => {
     };
 
     const validator = new Validator(apiMock, undefined);
+
+    const postDataGeneratorResponse = {name: 'Code things', owner: 'Joan'};
 
     before(() => {
 
@@ -64,6 +92,11 @@ describe('validator', () => {
             function() {return 'prettyParsedUrl&param=1';});
 
         sinon.stub(
+            validator.postDataGenerator,
+            'generate',
+            function() {return postDataGeneratorResponse;});
+
+        sinon.stub(
             validator.endpointChecker,
             'check',
             function() {return Q.defer().promise});
@@ -77,8 +110,16 @@ describe('validator', () => {
 
     it('should validate', () => {
         validator.validate();
-        validator.endpointChecker.check.should.have.been.calledWith('prettyParsedUrl&param=1', 'get');
-        // TODO: Check number of calls and an error response
+
+        validator.endpointChecker.check.should.have.been.calledTwice;
+
+        validator.endpointChecker.check.should.have.been.calledWith(
+            'prettyParsedUrl&param=1', 'get', [200, 999], {});
+
+        validator.endpointChecker.check.should.have.been.calledWith(
+            'prettyParsedUrl&param=1', 'post', [200], postDataGeneratorResponse);
+
+        // TODO: Check error responses
     });
 
 });
