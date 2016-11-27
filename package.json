@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/joanvila/raml-js-validator#readme",
   "dependencies": {
+    "lodash": "^4.17.2",
     "q": "^1.4.1",
     "raml-1-parser": "^1.1.6",
     "request": "^2.76.0",

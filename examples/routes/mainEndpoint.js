@@ -33,8 +33,17 @@ router.get('/user/:userid/task/:taskid', (req, res, next) => {
 });
 
 router.post('/task', (req, res, next) => {
-    // FIXME: Not geting the body parameters
-    res.status(200).json('ok');
+    const name = req.body.name;
+    const owner = req.body.owner;
+    if (typeof(name) !== 'undefined' && typeof(owner) !== 'undefined') {
+        res.status(200).json({
+            name: name,
+            owner: owner,
+            created: true
+        });
+    } else {
+        res.status(400).json('Task name and owner must be specified');
+    }
 });
 
 router.get('/task', (req, res, next) => {
