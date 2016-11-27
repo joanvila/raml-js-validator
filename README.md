@@ -26,9 +26,9 @@ To use it, you can simply run this command:
 raml-validate path/to/file.raml
 ```
 
-This command will read the raml definition in the file `file.raml` and query the backend for each endpoint. If the response codes match the ones specified, no error will be reported. However, if an endpoint fails, an exception will be thrown.
+This command will read the RAML definition in the file `file.raml` and query the backend for each endpoint. If the response codes match the ones specified, no error will be reported. However, if an endpoint fails, an exception will be thrown.
 
-If you want to test the raml against a different host than the one specified in the RAML file, you can do it this way:
+If you want to test the RAML against a different host than the one specified in the RAML file, you can do it this way:
 
 ```
 raml-validate path/to/file.raml --target http://localhost:8080
@@ -38,13 +38,13 @@ The `--target` option sets the target server url. If it is not present, it will 
 
 ## Checking response codes
 
-In order to say if a response code is valid or not, raml-validate uses two priorities. By default, if the raml file contains the response codes, those will be considered the accepted ones and the check will fail if the real response code is not one of those.
+In order to say if a response code is valid or not, `raml-validate` uses two priorities. By default, if the RAML file contains the response codes, those will be considered the accepted ones and the check will fail if the real response code is not one of those.
 
 However, if the response codes are not present in the API definition, the only accepted code will be the 200 one. Again, you can change the default accepted response codes in the file `config.js`.
 
 ## Query parameters
 
-Query parameters will be checked if they are defined with an example value:
+Query parameters will be sent to the API if they are defined with an example value:
 
 ```
 /url/with/params:
@@ -62,7 +62,38 @@ Query parameters will be checked if they are defined with an example value:
 
 In this case, the tested endpoint would be `baseUri/url/with/params?today=2016-11-23&tomorrow=2016-11-24`. Note that required field doesn't affect.
 
-## Running the example
+## Post data in the request body
+
+In some cases, it is necessary to send data in the body of the request. Specially in `POST` methods. `raml-validate` supports it according to the RAML 1.0 syntax:
+
+```
+/task:
+    post:
+        description: |
+            Creates a task
+        body:
+            application/x-www-form-urlencoded:
+                properties:
+                    name:
+                        description: Nam of the task
+                        type: string
+                        example: Code things
+                    owner:
+                        description: Who's going to do it
+                        type: string
+                        example: Joan
+```
+
+In this case, the body of the request would contain the corresponding data in JSON format:
+
+```
+{
+    name: "Code things",
+    owner: "Joan"
+}
+```
+
+## Running and testing the example
 
 If you browse into the package contents you will find an `examples` folder. There, you can find an example API and it's own RAML definition. In order check how it works, from a terminal in the directory of the module run:
 

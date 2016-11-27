@@ -7,6 +7,9 @@ const http = require('http');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 const router = express.Router();
 
