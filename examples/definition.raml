@@ -20,6 +20,12 @@ baseUri: /
                         type: array
 
 /task/{taskid}:
+    description: get task by id
+    uriParameters:
+        taskid:
+            type: integer
+            example: 3
+
     get:
         responses:
             200:
@@ -49,6 +55,11 @@ baseUri: /
             200:
 
 /user/{userid}/task/{taskid}:
+    description: Get a task from a user id (Note that the userid is defined and the taskid not)
+    uriParameters:
+        userid:
+            type: integer
+            example: 57
     get:
         responses:
             200:

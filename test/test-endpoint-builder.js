@@ -63,7 +63,10 @@ describe('endpoint-builder', () => {
             paramMappings.get.restore();
         });
 
-        const mockParam = { type: function() {return typeof('string');} };
+        const mockParam = {
+            type: function() {return typeof('string');},
+            example: function() {return null;}
+        };
 
         it('should return a parsed uri with a param replaced', () => {
             assert.equal(
@@ -91,13 +94,56 @@ describe('endpoint-builder', () => {
             paramMappings.get.restore();
         });
 
-        const mockParam = { type: function() {return typeof(1);} };
+        const mockParam = {
+            type: function() {return typeof(1);},
+            example: function() {return null;}
+        };
 
         it('should return a parsed uri with an integer type param', () => {
             assert.equal(
                 endpointBuilder.parseUriWithParameters(
                     'http://target.com/resource/{testParam}/{anotherTestParam}', [mockParam, mockParam]),
                 'http://target.com/resource/1/1');
+        });
+
+    });
+
+    describe('parseUriWithStringParametersWithExample()', () => {
+
+        before(() => {
+            sinon.stub(paramMappings, 'get', function() { return 'a'; });
+        });
+
+        after(() => {
+            paramMappings.get.restore();
+        });
+
+        const mockParam = {
+            type: function() {return typeof('string');},
+            example: function() {return null;}
+        };
+
+        const mockParamWithExample = {
+            type: function() {return typeof('string');},
+            example: function() {
+                return {
+                    value: function() {return 'example';}
+                };
+            }
+        };
+
+        it('should return a parsed uri with an example param replaced', () => {
+            assert.equal(
+                endpointBuilder.parseUriWithParameters(
+                    'http://target.com/resource/{testParam}', [mockParamWithExample]),
+                'http://target.com/resource/example');
+        });
+
+        it('should return a parsed uri with mixed params and example params replaced', () => {
+            assert.equal(
+                endpointBuilder.parseUriWithParameters(
+                    'http://target.com/resource/{testParam}/{anotherTestParam}', [mockParamWithExample, mockParam]),
+                'http://target.com/resource/example/a');
         });
 
     });
