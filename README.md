@@ -42,6 +42,23 @@ In order to say if a response code is valid or not, `raml-validate` uses two pri
 
 However, if the response codes are not present in the API definition, the only accepted code will be the 200 one. Again, you can change the default accepted response codes in the file `config.js`.
 
+## Uri parameters
+
+In order to allow `raml-validate` to check the API with the appropriate uri parameters you should define them with examples:
+
+```
+/task/{taskid}:
+    uriParameters:
+        taskid:
+            type: integer
+            example: 3
+
+    get:
+        ...
+```
+
+If a parameter doesn't have an example, a non deterministic value will be used instead.
+
 ## Query parameters
 
 Query parameters will be sent to the API if they are defined with an example value:
