@@ -50,22 +50,25 @@ const argv = yargs
     '  ' + 'https://github.com/joanvila/raml-js-validator')
     .argv;
 
-console.log(argv);
-
 const fileName = path.resolve(process.cwd(), argv._[0]);
 
-// let api = null;
-//
-// try {
-//     api = raml.loadApiSync(fileName, {rejectOnErrors: true});
-// } catch (err) {
-//     err.parserErrors.forEach((parserError) => {
-//         console.log('Parsing error: ' + parserError.message);
-//     });
-//     throw err.message;
-// }
-//
-// console.log('RAML parsing success. Querying api now...');
-//
-// const validator = new Validator(api, argv.target);
-// validator.validate();
+let api = null;
+
+try {
+    api = raml.loadApiSync(fileName, {rejectOnErrors: true});
+} catch (err) {
+    err.parserErrors.forEach((parserError) => {
+        console.log('Parsing error: ' + parserError.message);
+    });
+    throw err.message;
+}
+
+console.log('RAML parsing success. Querying the API now...');
+
+const validator = new Validator(
+    api,
+    argv.target,
+    argv['validate-response'],
+    argv['depth-levels']
+);
+validator.validate();

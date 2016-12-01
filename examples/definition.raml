@@ -9,7 +9,9 @@ baseUri: /
             200:
                 body:
                     application/json:
-                        type: string
+                        type: object
+                        properties:
+                            message: string
 
 /tasks:
     get:
