@@ -10,10 +10,12 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/tasks', (req, res, next) => {
-    res.status(200).json([
-        'Do something',
-        'Another thing'
-    ]);
+    res.status(200).json({
+        tasks: [
+            'Do something',
+            'Another thing'
+        ]
+    });
 });
 
 router.get('/task/:taskid', (req, res, next) => {
