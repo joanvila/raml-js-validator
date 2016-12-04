@@ -29,15 +29,8 @@ const argv = yargs
         type: 'boolean'
     })
 
-    .option('d', {
-        alias: 'depth-levels',
-        demand: false,
-        describe: 'Response validation depth levels',
-        type: 'number'
-    })
-
     .example('raml-validate definition.raml', '--target http://localhost:8080')
-    .example('raml-validate definition.raml', '--validate-response --depth-levels 1')
+    .example('raml-validate definition.raml', '--validate-response')
 
     .check(argv => {
         if (argv._.length < 1) {
@@ -68,7 +61,6 @@ console.log('RAML parsing success. Querying the API now...');
 const validator = new Validator(
     api,
     argv.target,
-    argv['validate-response'],
-    argv['depth-levels']
+    argv['validate-response']
 );
 validator.validate();

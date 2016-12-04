@@ -70,7 +70,7 @@ describe('validator', () => {
         }
     };
 
-    const validator = new Validator(apiMock, undefined);
+    const validator = new Validator(apiMock, undefined, false);
 
     const postDataGeneratorResponse = {name: 'Code things', owner: 'Joan'};
 
@@ -114,12 +114,10 @@ describe('validator', () => {
         validator.endpointChecker.check.should.have.been.calledTwice;
 
         validator.endpointChecker.check.should.have.been.calledWith(
-            'prettyParsedUrl&param=1', 'get', [200, 999], {});
+            'prettyParsedUrl&param=1', 'get', sinon.match.any, {}, false);
 
         validator.endpointChecker.check.should.have.been.calledWith(
-            'prettyParsedUrl&param=1', 'post', [200], postDataGeneratorResponse);
-
-        // TODO: Check error responses
+            'prettyParsedUrl&param=1', 'post', sinon.match.any, postDataGeneratorResponse, false);
     });
 
 });
