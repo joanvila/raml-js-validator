@@ -42,7 +42,11 @@ In order to say if a response code is valid or not, `raml-validate` uses two pri
 
 However, if the response codes are not present in the API definition, the only accepted code will be the 200 one. Again, you can change the default accepted response codes in the file `config.js`.
 
-## Uri parameters
+## Checking the response schema
+
+By default, `raml-validate` doesn't check the response schema. If you want to check it, you can use the option `--validate-response`. This option will check that the json returned from the API matches the one defined in the raml. However, only the first level of the response will be taken into account. In the next versions, there will be an option to check all the schema recursively.
+
+## Sending uri parameters
 
 In order to allow `raml-validate` to check the API with the appropriate uri parameters you should define them with examples:
 
@@ -59,7 +63,7 @@ In order to allow `raml-validate` to check the API with the appropriate uri para
 
 If a parameter doesn't have an example, a non deterministic value will be used instead.
 
-## Query parameters
+## Sending query parameters
 
 Query parameters will be sent to the API if they are defined with an example value:
 
@@ -79,7 +83,7 @@ Query parameters will be sent to the API if they are defined with an example val
 
 In this case, the tested endpoint would be `baseUri/url/with/params?today=2016-11-23&tomorrow=2016-11-24`. Note that required field doesn't affect.
 
-## Post data in the request body
+## Sending post data in the request body
 
 In some cases, it is necessary to send data in the body of the request. Specially in `POST` methods. `raml-validate` supports it according to the RAML 1.0 syntax:
 
