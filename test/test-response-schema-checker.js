@@ -79,7 +79,7 @@ describe('response-schema-checker', () => {
             });
         });
 
-        it('should return a valid result when schema matches', () => {
+        it('should return an invalid result when the schema do not match', () => {
             expect(responseSchemaChecker.check(mockBodyExpectedResp, mockBadResponse))
             .to.deep.equal({
                 valid: false, validationErrorReason: 'object !== number'
