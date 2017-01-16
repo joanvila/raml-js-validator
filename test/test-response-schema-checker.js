@@ -135,6 +135,36 @@ describe('response-schema-checker', () => {
                 '        Received from API: [ badKey ]'
             });
         });
+    });
 
+    describe('check() complex body without example provided', () => {
+
+        const mockBodyExpectedResp = [{
+            code: function() {
+                return {
+                    value: function() {return 200;}
+                };
+            },
+            body: function() {
+                return [{
+                    type: function() {return ['ComplexObject'];},
+                    toJSON: function() {
+                        return {};
+                    }
+                }];
+            }
+        }];
+
+        const mockResponse = {
+            statusCode: 200,
+            body: '{"key": 42}'
+        };
+
+        it('should return an invalid result when the example is not present in the raml specification', () => {
+            expect(responseSchemaChecker.check(mockBodyExpectedResp, mockResponse))
+            .to.deep.equal({
+                valid: false, validationErrorReason: 'No example provided in the RAML file'
+            });
+        });
     });
 });

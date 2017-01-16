@@ -50,6 +50,13 @@ router.post('/task', (req, res, next) => {
     }
 });
 
+router.get('/task/type/defined', (req, res, next) => {
+    res.status(200).json({
+        id: 1,
+        name: 'Do things'
+    });
+});
+
 router.get('/task', (req, res, next) => {
     res.status(200).json('ok');
 });
