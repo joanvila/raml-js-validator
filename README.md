@@ -44,7 +44,9 @@ However, if the response codes are not present in the API definition, the only a
 
 ## Checking the response schema
 
-By default, `raml-validate` doesn't check the response schema. If you want to check it, you can use the option `--validate-response`. This option will check that the json returned from the API matches the one defined in the raml. However, only the first level of the response will be taken into account. In the next versions, there will be an option to check all the schema recursively.
+By default, `raml-validate` doesn't check the response schema. If you want to check it, you can use the option `--validate-response`. This option will check that the first level of the json keys returned from the API matches the ones defined in the RAML. In the next versions, there will be an option to check all the schema recursively.
+
+Note that to validate the response, you need to have an example response defined in the RAML apart from the type definition. Check the example for more details.
 
 ## Sending uri parameters
 

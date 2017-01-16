@@ -1,6 +1,9 @@
 #%RAML 1.0
 title: Test api
 version: 1
+mediaType: application/json
+protocols:
+  - HTTP
 baseUri: /
 
 /:
@@ -8,18 +11,16 @@ baseUri: /
         responses:
             200:
                 body:
-                    application/json:
-                        type: object
-                        properties:
-                            message: string
+                    type: object
+                    properties:
+                        message: string
 
 /tasks:
     get:
         responses:
             200:
                 body:
-                    application/json:
-                        type: object
+                    type: object
 
 /task/{taskid}:
     description: get task by id
@@ -32,8 +33,7 @@ baseUri: /
         responses:
             200:
                 body:
-                    application/json:
-                        type: string
+                    type: string
 
 /task:
     get:
@@ -66,8 +66,7 @@ baseUri: /
         responses:
             200:
                 body:
-                    application/json:
-                        type: string
+                    type: string
 
 /url/with/params:
     get:
@@ -81,10 +80,27 @@ baseUri: /
                 required: true
                 example: 2016-09-19
 
+/task/type/defined:
+    get:
+        responses:
+            200:
+                body:
+                    type: Task
+                    example: !include example_response.json
+
 /unexisting:
     get:
         responses:
             200:
                 body:
-                    application/json:
-                        type: string
+                    type: string
+
+types:
+    Task:
+        properties:
+            id:
+                type: integer
+                required: true
+            name:
+                type: string
+                required: true
