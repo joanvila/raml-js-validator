@@ -204,8 +204,7 @@ describe('endpoint-builder', () => {
                     }
                 };
             }
-            }
-            ];
+            }];
 
             assert.deepEqual(
                 endpointBuilder.parseHeaders(mockParam),

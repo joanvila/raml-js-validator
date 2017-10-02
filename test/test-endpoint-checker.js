@@ -53,12 +53,12 @@ describe('endpoint-checker', () => {
 
 
         it('should accept promise on 200 code', () => {
-            return expect(endpointChecker.check('http://localhost:80', 'get', expectedResponses200Mock, {}, false)).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'get', {'header1': 'value1'}, expectedResponses200Mock, {}, false)).to.eventually
               .equal('Resource OK');
         });
 
         it('should check default response code when no one specified', () => {
-            return expect(endpointChecker.check('http://localhost:80', 'get', [], {}, false)).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'get', {'header1': 'value1'}, [], {}, false)).to.eventually
               .equal('Resource OK');
         });
 
@@ -77,13 +77,13 @@ describe('endpoint-checker', () => {
         });
 
         it('should reject promise with error', () => {
-            return expect(endpointChecker.check('http://localhost:80', 'get', expectedResponses200Mock, {}, false)).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'get', {'header1': 'value1'}, expectedResponses200Mock, {}, false)).to.eventually
               .be.rejectedWith('[ERROR][get] http://localhost:80')
               .and.be.an.instanceOf(Error);
         });
 
         it('should accept if the expected code is 500', () => {
-            return expect(endpointChecker.check('http://localhost:80', 'get', expectedResponses200500Mock, {}, false)).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'get', {'header1': 'value1'}, expectedResponses200500Mock, {}, false)).to.eventually
               .equal('Resource OK');
         });
 
@@ -104,15 +104,14 @@ describe('endpoint-checker', () => {
         });
 
         it('should return a 200 when sending a post', () => {
-            return expect(endpointChecker.check('http://localhost:80', 'post', expectedResponses200Mock, {}, false)).to.eventually
+            return expect(endpointChecker.check('http://localhost:80', 'post', {'header1': 'value1'} ,expectedResponses200Mock, {}, false)).to.eventually
               .equal('Resource OK');
         });
 
         it('should send the post data when it is not empty', () => {
-            endpointChecker.check('http://localhost:80', 'post', expectedResponses200Mock, postDataMock, false);
+            endpointChecker.check('http://localhost:80', 'post', {'header1': 'value1'}, expectedResponses200Mock, postDataMock, false);
 
-            request.post.should.have.been.calledWith(
-                'http://localhost:80', {form: postDataMock});
+            request.post.should.have.been.calledWith({url: 'http://localhost:80', headers: {'header1': 'value1'}, form: postDataMock});
         });
 
     });
