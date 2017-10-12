@@ -225,8 +225,8 @@ describe('endpoint-builder', () => {
 
         it('should return an empty object if there are no headers', () => {
 
-            assert.equal(
-                endpointBuilder.parseHeaders([]), null);
+            assert.deepEqual(
+                endpointBuilder.parseHeaders([]), {});
         });
 
     });
