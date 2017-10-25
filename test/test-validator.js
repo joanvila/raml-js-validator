@@ -45,6 +45,9 @@ describe('validator', () => {
                         },
                         queryParameters: function() {
                             return 'param';
+                        },
+                        headers: function() {
+                            return [];
                         }
                     }, {
                         method: function() {
@@ -63,6 +66,18 @@ describe('validator', () => {
                         },
                         queryParameters: function() {
                             return 'param';
+                        },
+                        headers: function() {
+                            return [{
+                                displayName: function() {return 'header1';},
+                                example: function() {
+                                    return {
+                                    value: function() {
+                                        return 'value1';
+                                    }
+                                };
+                            }
+                            }];
                         }
                     }];
                 }
@@ -73,6 +88,8 @@ describe('validator', () => {
     const validator = new Validator(apiMock, undefined, false);
 
     const postDataGeneratorResponse = {name: 'Code things', owner: 'Joan'};
+
+    const parseHeadersResponse = {header1: 'value1'};
 
     before(() => {
 
@@ -90,6 +107,11 @@ describe('validator', () => {
             validator.endpointBuilder,
             'addQueryParams',
             function() {return 'prettyParsedUrl&param=1';});
+
+        sinon.stub(
+            validator.endpointBuilder,
+            'parseHeaders',
+            function() {return parseHeadersResponse;});
 
         sinon.stub(
             validator.postDataGenerator,
@@ -114,10 +136,10 @@ describe('validator', () => {
         validator.endpointChecker.check.should.have.been.calledTwice;
 
         validator.endpointChecker.check.should.have.been.calledWith(
-            'prettyParsedUrl&param=1', 'get', sinon.match.any, {}, false);
+            'prettyParsedUrl&param=1', 'get', {}, sinon.match.any, {}, false);
 
         validator.endpointChecker.check.should.have.been.calledWith(
-            'prettyParsedUrl&param=1', 'post', sinon.match.any, postDataGeneratorResponse, false);
+            'prettyParsedUrl&param=1', 'post', parseHeadersResponse, sinon.match.any, postDataGeneratorResponse, false);
     });
 
 });

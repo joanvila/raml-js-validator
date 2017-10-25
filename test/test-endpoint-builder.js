@@ -182,4 +182,53 @@ describe('endpoint-builder', () => {
 
     });
 
+     describe('parseHeaders()', () => {
+
+        it('should return a parsed header as an object to use in the request npm module', () => {
+
+            const mockParam = [{
+                displayName: function() {return 'header1';},
+                example: function() {
+                    return {
+                    value: function() {
+                        return 'value1';
+                    }
+                };
+            }
+            },{
+                displayName: function() {return 'header2';},
+                example: function() {
+                    return {
+                    value: function() {
+                        return 'value2';
+                    }
+                };
+            }
+            }];
+
+            assert.deepEqual(
+                endpointBuilder.parseHeaders(mockParam),
+                {'header1': 'value1', 'header2': 'value2'});
+        });
+
+        it('should return an empty object if "headers" contains invalid data', () => {
+
+            const mockParam = {
+                displayName: function() {return 'header1';},
+                example: function() {return null;}
+            };
+
+            assert.deepEqual(
+                endpointBuilder.parseHeaders(
+                    [mockParam]), {});
+        });
+
+        it('should return an empty object if there are no headers', () => {
+
+            assert.deepEqual(
+                endpointBuilder.parseHeaders([]), {});
+        });
+
+    });
+
 });
